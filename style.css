@@ -1,0 +1,160 @@
+/* style.css - Simple Frame Animator styles */
+
+:root{
+  --bg:#f7f9fc;
+  --panel:#ffffff;
+  --accent:#4a90e2;
+  --muted:#6b7280;
+  --shadow: 0 2px 6px rgba(16,24,40,0.08);
+  --radius:10px;
+}
+
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:#111827;
+}
+
+header{
+  padding:14px 20px;
+  background:linear-gradient(90deg, #ffffff, #f2f6fb);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+header h1{margin:0;font-size:18px;}
+header .hint{margin:0;color:var(--muted);font-size:13px;}
+
+main{
+  display:flex;
+  gap:18px;
+  padding:18px;
+  align-items:flex-start;
+}
+
+/* Left panel with canvas and controls */
+.left-panel{
+  background:var(--panel);
+  border-radius:var(--radius);
+  padding:12px;
+  box-shadow:var(--shadow);
+  flex:1 1 720px;
+  min-width:360px;
+}
+
+.canvas-wrap{
+  position:relative;
+  background:#fff;
+  border-radius:6px;
+  overflow:hidden;
+  border:1px solid #e6eef8;
+}
+
+/* Make canvas responsive while keeping aspect ratio */
+canvas#drawCanvas{
+  display:block;
+  width:100%;
+  height:auto;
+  background:transparent;
+  touch-action: none; /* better touch drawing */
+}
+
+/* Onion overlay sits above the canvas to show previous frame faintly if needed */
+#onionOverlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  mix-blend-mode:multiply;
+  opacity:0.6;
+}
+
+/* Controls */
+.controls, .play-controls{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.controls label, .play-controls label{
+  font-size:13px;
+  color:var(--muted);
+}
+
+input[type="range"]{vertical-align:middle;}
+input[type="color"]{width:36px;height:28px;padding:0;border:0;background:none;}
+
+/* Buttons */
+button{
+  background:var(--accent);
+  color:white;
+  border:0;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:0 1px 2px rgba(0,0,0,0.08);
+}
+
+button:active{transform:translateY(1px);}
+#eraserBtn{background:#ef4444;}
+#clearBtn{background:#f59e0b;}
+#deleteFrameBtn{background:#ef4444;}
+#playBtn{background:#10b981;}
+#exportBtn{background:#6366f1;}
+
+/* Right panel with thumbnails */
+.right-panel{
+  width:220px;
+  background:var(--panel);
+  border-radius:var(--radius);
+  padding:12px;
+  box-shadow:var(--shadow);
+  height:520px;
+  overflow:auto;
+}
+
+.frames-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+/* Thumbnail items */
+.frame-thumb{
+  width:72px;
+  height:48px;
+  background:#f8fafc;
+  border:1px solid #e6eef8;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+
+.frame-thumb canvas{width:100%;height:100%;display:block;}
+.frame-thumb.active{outline:3px solid #60a5fa;}
+
+/* Footer */
+footer{
+  padding:12px 18px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  main{flex-direction:column;}
+  .right-panel{width:100%;height:140px;order:2;}
+  .left-panel{order:1;}
+}
